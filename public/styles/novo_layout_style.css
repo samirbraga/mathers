@@ -465,7 +465,7 @@ body{
 	width: 100%;
 	background: transparent;
 	position: relative;
-	background: url('images/arabesco_background.png') fixed;
+	background: url('../images/arabesco_background.png') fixed;
 }
 
 .main-full-content .follow-scroll{
