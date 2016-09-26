@@ -6,6 +6,25 @@
 	outline: none;
 	font-family: 'Century Gothic', sans-serif;
 }
+@font-face {
+  font-family: 'Century Gothic';
+  src: url('../fonts/Century Gothic/GOTHIC.TTF');
+  src: url('GOTHIC?#iefix') format('embedded-opentype'),
+    url('GOTHIC.svg#Locaweb-Icons') format('svg'),
+    url('GOTHIC.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Andale Mono IPA';
+  src: url('../fonts/Andale Mono IPA/ANDMOIPA.TTF');
+  src: url('ANDMOIPA?#iefix') format('embedded-opentype'),
+    url('ANDMOIPA.svg#Locaweb-Icons') format('svg'),
+    url('ANDMOIPA.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 
 html,
 body {
