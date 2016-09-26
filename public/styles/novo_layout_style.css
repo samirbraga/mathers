@@ -8,7 +8,7 @@
 }
 @font-face {
   font-family: 'Century Gothic';
-  src: url('../fonts/Century Gothic/GOTHIC.TTF');
+  src: url('../fonts/Century Gothic/GOTHIC.ttf');
   src: url('../fonts/Century Gothic/GOTHIC?#iefix') format('embedded-opentype'),
     url('../fonts/Century Gothic/GOTHIC.svg#Locaweb-Icons') format('svg'),
     url('../fonts/Century Gothic/GOTHIC.ttf') format('truetype');
@@ -17,7 +17,7 @@
 }
 @font-face {
   font-family: 'Andale Mono IPA';
-  src: url('../fonts/Andale Mono IPA/ANDMOIPA.TTF');
+  src: url('../fonts/Andale Mono IPA/ANDMOIPA.ttf');
   src: url('../fonts/Andale Mono IPA/ANDMOIPA?#iefix') format('embedded-opentype'),
     url('../fonts/Andale Mono IPA/ANDMOIPA.svg#Locaweb-Icons') format('svg'),
     url('../fonts/Andale Mono IPA/ANDMOIPA.ttf') format('truetype');
