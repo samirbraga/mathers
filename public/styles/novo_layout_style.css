@@ -9,18 +9,18 @@
 @font-face {
   font-family: 'Century Gothic';
   src: url('../fonts/Century Gothic/GOTHIC.TTF');
-  src: url('GOTHIC?#iefix') format('embedded-opentype'),
-    url('GOTHIC.svg#Locaweb-Icons') format('svg'),
-    url('GOTHIC.ttf') format('truetype');
+  src: url('../fonts/Century Gothic/GOTHIC?#iefix') format('embedded-opentype'),
+    url('../fonts/Century Gothic/GOTHIC.svg#Locaweb-Icons') format('svg'),
+    url('../fonts/Century Gothic/GOTHIC.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'Andale Mono IPA';
   src: url('../fonts/Andale Mono IPA/ANDMOIPA.TTF');
-  src: url('ANDMOIPA?#iefix') format('embedded-opentype'),
-    url('ANDMOIPA.svg#Locaweb-Icons') format('svg'),
-    url('ANDMOIPA.ttf') format('truetype');
+  src: url('../fonts/Andale Mono IPA/ANDMOIPA?#iefix') format('embedded-opentype'),
+    url('../fonts/Andale Mono IPA/ANDMOIPA.svg#Locaweb-Icons') format('svg'),
+    url('../fonts/Andale Mono IPA/ANDMOIPA.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -130,7 +130,7 @@ body{
 
 .topbar .right-align .toggle-menu.actived-menu .toggle-menu-line{
 	margin: 0px auto;
-	width: 40%;
+	width: 35%;
 }
 .topbar .right-align .toggle-menu.actived-menu{
 	padding: 27px 0;
@@ -138,7 +138,7 @@ body{
 
 .topbar .right-align .toggle-menu.desactived-menu .toggle-menu-line{
 	margin: 5px auto;
-	width: 50%;
+	width: 40%;
 }
 .topbar .right-align .toggle-menu.desactived-menu{
 	padding: 17px 0;

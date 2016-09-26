@@ -175,17 +175,22 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			var menu = $('.menu'),
-					menuContainer = $('.menu .menu-container'),
-					menuIsolaterBackground = $('.menu .menu-isolater-background'),
-					toggleMenu = $('.topbar .toggle-menu'),
-					closeMenu = $('.menu .menu-topbar .close');
+				menuContainer = $('.menu .menu-container'),
+				menuIsolaterBackground = $('.menu .menu-isolater-background'),
+				toggleMenu = $('.topbar .toggle-menu'),
+				closeMenu = $('.menu .menu-topbar .close');
 
 			var menuFn = {
 				show: function(){
 					menu.show();
 					menuContainer.animate({
 						right: 0	
-					}, 200);
+					}, 200, function(){
+						$('body').css({
+							'position': 'fixed',
+							'overflow-y': 'scroll'
+						});
+					});
 					menuIsolaterBackground.fadeIn(100);
 					menu.attr('data-actived', 'true');
 					toggleMenu.removeClass('desactived-menu');
@@ -196,6 +201,10 @@
 						right: '-100%'
 					}, 100, function(){
 						menu.fadeOut(100);
+						$('body').css({
+							'position': 'static',
+							'overflow-y': 'auto'
+						});
 					});
 					menu.attr('data-actived', 'false');
 					toggleMenu.removeClass('actived-menu');
@@ -247,7 +256,7 @@
 			});
 			var scrollCount = 0;
 
-			$(document).on('scroll', function(){
+			$(document).on('scroll', function(e){
 				var selectScroll = 0;
 				var scrollTop = document.body.scrollTop;
 				/*if(scrollTop >= 50 && scrollTop <= 200){
@@ -266,7 +275,14 @@
 					}
 				})
 				$('.follow-scroll .scroll-marker').removeClass('actived-scroll')
-				$('.follow-scroll .scroll-marker').eq(selectScroll).addClass('actived-scroll')
+				$('.follow-scroll .scroll-marker').eq(selectScroll).addClass('actived-scroll');
+				if(menu.attr('data-actived') == "true"){
+					e.preventDefault();
+					return false;
+
+				}else{
+
+				}
 			})
 			$('.follow-scroll .scroll-marker').click(function(e){
 				var index = $(e.target).index();
