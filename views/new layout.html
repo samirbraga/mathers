@@ -250,7 +250,7 @@
 			$(document).on('scroll', function(){
 				var selectScroll = 0;
 				var scrollTop = document.body.scrollTop;
-				if(scrollTop >= 50 && scrollTop <= 200){
+				/*if(scrollTop >= 50 && scrollTop <= 200){
 					if(scrollCount == 0){
 						scrollCount += 1;
 						$('body, html').animate({
@@ -259,7 +259,7 @@
 					}
 				}else if(scrollTop == 0){
 					scrollCount = 0;
-				}
+				}*/
 				$('.pages, .introduction').each(function(i){
 					if(scrollTop >= $(this).offset().top - 200){
 						selectScroll = i;
