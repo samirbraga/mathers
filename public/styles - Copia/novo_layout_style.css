@@ -33,10 +33,9 @@ body {
 	min-height: 100%;
 }
 body{
-	background: #616161; 
-	background: -webkit-linear-gradient(to left, #0c6c62 , #3c948b);
-	background: linear-gradient(to left, #0c6c62 , #3c948b); 
-	overflow-x: hidden;
+	background: #616161; /* fallback for old browsers */
+	background: -webkit-linear-gradient(to left, #0c6c62 , #3c948b); /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to left, #0c6c62 , #3c948b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 .topbar {
 	width: 100%;
@@ -579,104 +578,8 @@ body{
 .main-full-content .pages{
 	height: 100vh;
 	width: 100%;
-	background: transparent;
+	background: #fff;
 	border-bottom: 1px solid rgba(60,148,139,0.4);
-	font-size: 0;
-	position: relative;
-}
-
-.main-full-content .page1{
-	background: #fff; 
-	overflow: hidden;
-}
-
-.main-full-content .page1 .page-content{
-	position: absolute;
-	right: 0;
-	height: 100%;
-	width: 100%;
-	display: inline-block;
-	background: #fff; 
-	background: -webkit-linear-gradient(to left, #fff, rgba(255,255,255,0.0));
-	background: linear-gradient(to left, #fff , rgba(255,255,255,0.0)); 
-	background-position: -50% 0; 
-}
-
-
-.main-full-content .page1 .page-content article{
-	position: relative;
-	height: 70%;
-	width: auto;
-	float: right;
-	margin: 0 80px 0 20px;
-}
-.main-full-content .page1 .page-content nav{
-	position: absolute;
-	bottom: 15px;
-	right: 60px;
-	margin: 0 15px;
-	width: 100%;
-	height: auto;
-	text-align: right;
-}
-.main-full-content .page1 .page-content nav ul{
-	width: auto;
-	height: auto;
-	float: right;
-}
-.main-full-content .page1 .page-content nav ul li{
-	list-style: none;
-	display: inline-block;
-	width: 70px;
-	height: 70px;
-	background: #3c948b;
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: 40px 40px;
-	margin: 1px;
-	transition: background 0.2s ease-out;
-}
-.main-full-content .page1 .page-content nav ul li:hover{
-	background: #0e6058;
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: 40px 40px;
-}
-
-.main-full-content .page1 .page-content article .content-text{
-	height: auto;
-	width: 400px;
-}
-
-.main-full-content .page1 .page-content article h1{
-	font-size: 25pt;
-	font-family: 'Century Gothic', sans-serif;
-	text-align: right;
-	color: #3c949b;
-	font-weight: normal;
-}
-.main-full-content .page1 .page-content article h1 span{
-	font-weight: bold;
-}
-
-.main-full-content .page1 .page-content article p{
-	font-size: 18pt;
-	font-family: 'Aspergit', sans-serif;
-	color: #3c949b;
-	margin: 10% 0;
-	text-align: right;
-}
-
-.main-full-content .page1 .page-content-figure{
-	width: 80%;
-	background: transparent;
-	display: inline-block;
-	vertical-align: top;
-}
-.main-full-content .page1 .page-content-figure img{
-	width: 100%;
-	position: relative;
-	vertical-align: middle;
 }
 
 
@@ -720,7 +623,3 @@ body{
     user-select: none;
 }
 
-.center-vertically{
-	top: 50%;
-	transform: translateY(-50%);
-}

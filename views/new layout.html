@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Mathers</title>
 	<meta charset="utf-8">
+	<link rel="icon" type="image/png" href="images/favicon.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script type="text/javascript" src="libs/jquery.js"></script>
 	<link rel="stylesheet" type="text/css" href="styles/novo_layout_style.css">
-	<link rel="stylesheet" type="text/css" href="styles/novo_layout_style_mobile.css">
+	<link rel="stylesheet" type="text/css" href="styles/novo_layout_style_mobile.css"><!-- 
+	<link rel="stylesheet" type="text/css" href="styles - Copia/novo_layout_style.css">
+	<link rel="stylesheet" type="text/css" href="styles - Copia/novo_layout_style_mobile.css"> -->
 </head>
 <body>
 	<div class="topbar unselectable">
@@ -162,13 +165,39 @@
 				<button>EXPLORAR<br><span>></span></button>
 			</div>
 		</section>
-		<section class="page1 pages">
-			
+		<section class="page1 pages unselectable">
+			<div class="page-content-figure">
+				<img src="images/pages/figure0001.jpg">
+			</div>
+			<div class="page-content">
+				<article class="center-vertically">
+					<div class="content-text">
+						<h1>Um site.<br><span>Muitas possibilidades.</span></h1>
+						<br>
+						<p>Aqui no Mathers você tem acesso aos mais variados assuntos matemáticos por meio de aplicações simples e interativas.</p>
+					</div>
+				</article>
+				<nav>
+					<ul>
+						<li style="background-image: url('../images/icons/white/matrix.png')">Matriz</li>
+						<li style="background-image: url('../images/icons/white/log.png')">Logaritmo</li>
+						<li style="background-image: url('../images/icons/white/convert.png')">Conversão</li>
+						<li style="background-image: url('../images/icons/white/consts.png')">Constantes</li><br>
+						<li style="background-image: url('../images/icons/white/2equation.png')">Eq. do 2º grau</li>
+						<li style="background-image: url('../images/icons/white/1equation.png')">Eq. do 1º grau</li>
+						<li style="background-image: url('../images/icons/white/progress.png')">Progressões</li>
+						<li style="background-image: url('../images/icons/white/geometry.png')">Geometria</li><br>
+						<li style="background-image: url('../images/icons/white/percent.png')">Porcentagem</li>
+						<li style="background-image: url('../images/icons/white/pow.png')">Exponenciação</li>
+						<li style="background-image: url('../images/icons/white/radic.png')">Radiciação</li>
+					</ul>
+				</nav>
+			</div>
 		</section>
 		<section class="page1 pages">
 			
 		</section>
-		<section class="page1 pages">
+		<section class="page2 pages">
 			
 		</section>
 	</div>
@@ -187,8 +216,8 @@
 						right: 0	
 					}, 200, function(){
 						$('body').css({
-							'position': 'fixed',
-							'overflow-y': 'scroll'
+							'overflow-y': 'hidden',
+							'padding-right': '17px'
 						});
 					});
 					menuIsolaterBackground.fadeIn(100);
@@ -201,9 +230,9 @@
 						right: '-100%'
 					}, 100, function(){
 						menu.fadeOut(100);
-						$('menu-body').css({
-							'position': 'static',
-							'overflow-y': 'auto'
+						$('body').css({
+							'overflow-y': 'auto',
+							'padding-right': '0'
 						});
 					});
 					menu.attr('data-actived', 'false');
@@ -256,6 +285,17 @@
 			});
 			var scrollCount = 0;
 
+
+			var sectionFn = {
+				goTo: function(index){
+					$('body, html').animate({
+						scrollTop: index == 0 ? $('.introduction').offset().top-60 : $('.pages').eq(index-1).offset().top
+					})
+				}
+			}
+
+			$('.intruction-button button').click(function(){ sectionFn.goTo(1) })
+
 			$(document).on('scroll', function(e){
 				var selectScroll = 0;
 				var scrollTop = document.body.scrollTop;
@@ -286,9 +326,7 @@
 			})
 			$('.follow-scroll .scroll-marker').click(function(e){
 				var index = $(e.target).index();
-				$('body, html').animate({
-					scrollTop: index == 0 ? $('.introduction').offset().top-60 : $('.pages').eq(index-1).offset().top
-				})
+				sectionFn.goTo(index)
 			})
 			$('.unselectable').on('selectstart', function(e){
 				e.preventDefault();

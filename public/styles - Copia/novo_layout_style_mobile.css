@@ -1,0 +1,50 @@
+@media screen and (max-width:  592px) {
+  
+	.topbar{
+		height: 120px;
+	}
+	.topbar .main-logo-icon {
+		width: 170px;
+		height: 60px;
+		background: url('../images/logo.png');
+		background-size: auto 70%;
+		background-position: 20px center;
+		background-repeat: no-repeat;
+		transition: background-color 0.1s ease-out;
+		position: absolute;
+	}
+	.topbar .main-logo-icon:hover{
+		width: 170px;
+		height: 60px;
+		background: url('../images/logo-gray.png') #f1f2f3;
+		background-size: auto 70%;
+		background-position: 20px center;
+		background-repeat: no-repeat;
+	}
+	.topbar .right-align{
+		width: 100%;
+	}
+
+	.topbar .right-align .nav-list{
+		margin: auto;
+		display: block;
+		width: 100%;
+	}
+	.topbar .right-align .nav-list ul{
+		margin: auto;
+		text-align: center;
+	}
+	.topbar .right-align .nav-list ul li{
+		width: 33.3%;
+	}
+
+	.menu .menu-container {
+		width: 320px;
+	}
+	.main-full-content .introduction h1{
+		margin-top: 60px;
+		font-size: 7vh;
+		line-height: 60vh;
+	}
+
+}
