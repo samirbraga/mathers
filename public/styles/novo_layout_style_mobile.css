@@ -1,8 +1,6 @@
-@media screen and (max-width:  592px) {
+@media screen and (max-width:  592px)  and (min-width:  350px) {
   
-	.topbar{
-		height: 120px;
-	}
+	
 	.topbar .main-logo-icon {
 		width: 170px;
 		height: 60px;
@@ -21,7 +19,56 @@
 		background-position: 20px center;
 		background-repeat: no-repeat;
 	}
-	.topbar .right-align{
+	.main-full-content .introduction h1{
+		margin-top: 60px;
+		font-size: 7vh;
+		line-height: 60vh;
+	}
+
+	.main-full-content .page1 .page-content article{
+		height: 50%;
+	}
+	.main-full-content .page1 .page-content article h1{
+		font-size: 17pt;
+	}
+	.main-full-content .page1 .page-content article p{
+		font-size: 14pt;
+	}
+	.main-full-content .page1 .page-content article .content-text{
+		height: auto;
+		width: 250px;
+	}
+	.main-full-content .page1 .page-content-figure{
+		height: 100%;
+		width: 100%;
+	}
+	.main-full-content .page1 .page-content nav{
+		left: 15px;
+		float: left;
+	}
+	.main-full-content .page1 .page-content nav ul{
+		left: 15px;
+		float: left;
+	}
+	.main-full-content .page1 .page-content nav ul li{
+		list-style: none;
+		display: inline-block;
+		width: 40px;
+		height: 40px;
+		background: #3c948b;
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: 40px 40px;
+		margin: 1px;
+		transition: background 0.2s ease-out;
+	}
+
+}
+@media screen and (max-width:  350px) {
+	.topbar{
+		height: 120px;
+	}
+  	.topbar .right-align{
 		width: 100%;
 	}
 
@@ -40,6 +87,24 @@
 
 	.menu .menu-container {
 		width: 320px;
+	}
+	.topbar .main-logo-icon {
+		width: 170px;
+		height: 60px;
+		background: url('../images/logo.png');
+		background-size: auto 70%;
+		background-position: 20px center;
+		background-repeat: no-repeat;
+		transition: background-color 0.1s ease-out;
+		position: absolute;
+	}
+	.topbar .main-logo-icon:hover{
+		width: 170px;
+		height: 60px;
+		background: url('../images/logo-gray.png') #f1f2f3;
+		background-size: auto 70%;
+		background-position: 20px center;
+		background-repeat: no-repeat;
 	}
 	.main-full-content .introduction h1{
 		margin-top: 60px;
@@ -64,6 +129,7 @@
 		height: 100%;
 		width: 100%;
 	}
+
 	.main-full-content .page1 .page-content nav ul li{
 		list-style: none;
 		display: inline-block;
@@ -76,6 +142,7 @@
 		margin: 1px;
 		transition: background 0.2s ease-out;
 	}
+
 	.main-full-content .page1 .page-content{
 		position: absolute;
 		right: 0;
@@ -88,5 +155,5 @@
 		background-position: -200px 0; 
 		background-size: 100% 50%; 
 	}
-
 }
+
