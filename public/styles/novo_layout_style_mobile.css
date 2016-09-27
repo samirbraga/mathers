@@ -1,4 +1,4 @@
-@media screen and (max-width:  592px)  and (min-width:  350px) {
+@media screen and (max-width:  692px)  and (min-width:  360px) {
   
 	
 	.topbar .main-logo-icon {
@@ -64,7 +64,7 @@
 	}
 
 }
-@media screen and (max-width:  350px) {
+@media screen and (max-width:  360px) {
 	.topbar{
 		height: 120px;
 	}
@@ -155,5 +155,6 @@
 		background-position: -200px 0; 
 		background-size: 100% 50%; 
 	}
+
 }
 
