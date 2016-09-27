@@ -63,8 +63,16 @@
 		transition: background 0.2s ease-out;
 	}
 
+	.menu .menu-container {
+		padding-right: 0;
+	}
+
 }
 @media screen and (max-width:  360px) {
+	.menu .menu-container {
+		padding-right: 0;
+	}
+
 	.topbar{
 		height: 120px;
 	}
@@ -154,6 +162,10 @@
 		background: linear-gradient(to top, #fff , rgba(255,255,255,0.0)); 
 		background-position: -200px 0; 
 		background-size: 100% 50%; 
+	}
+	.main-full-content .page1 .page-content nav ul{
+		float: right;
+		margin-right: 110px
 	}
 
 }
