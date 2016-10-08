@@ -453,6 +453,8 @@
 			$(document).on('scroll', function(e){
 				if(menu.attr('data-actived') == "true"){
 					document.body.scrollTop = scrollTopAtShowMenu
+					e.preventDefault()
+					e.stopPropagation();
 				}
 			})
 			$('.follow-scroll .scroll-marker').click(function(e){
