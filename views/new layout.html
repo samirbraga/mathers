@@ -455,6 +455,9 @@
 					document.body.scrollTop = scrollTopAtShowMenu
 					e.preventDefault()
 					e.stopPropagation();
+					$('body').addClass('fixed');
+				}else{
+					$('body').removeClass('fixed');
 				}
 			})
 			$('.follow-scroll .scroll-marker').click(function(e){
