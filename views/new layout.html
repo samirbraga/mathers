@@ -6,234 +6,324 @@
 	<link rel="icon" type="image/png" href="images/favicon.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script type="text/javascript" src="libs/jquery.js"></script>
+	<script type="text/javascript" src="libs/angular.js"></script>
 	<link rel="stylesheet" type="text/css" href="styles/novo_layout_style.css">
 	<link rel="stylesheet" type="text/css" href="styles/novo_layout_style_mobile.css"><!-- 
 	<link rel="stylesheet" type="text/css" href="styles - Copia/novo_layout_style.css">
 	<link rel="stylesheet" type="text/css" href="styles - Copia/novo_layout_style_mobile.css"> -->
+
+	<script type="text/javascript"  src="scripts/MVC/app.js"></script>
+	<script type="text/javascript"  src="scripts/MVC/controllers/mathers_welcome_ctrl.js"></script>
+	<script type="text/javascript">
+		function customScrollbar(element) {
+
+		  var elements = document.querySelectorAll(element);
+		  [].forEach.call(elements, function(container, i) {
+		  	var fullcontainer = container;
+		   	container.innerHTML = container.outerHTML;	
+		    container.removeAttribute('class');	
+		  	container.className = 'overflow-container';
+				
+		  	container = container.querySelector('.overflow');
+		    var scrollTopBar = document.createElement('div');
+		    var topBar = document.createElement('div');
+		    var scrollLeftBar = document.createElement('div');
+		    var leftBar = document.createElement('div');
+		    scrollLeftBar.className = "scrollLeftBar scrollBar";
+		    scrollTopBar.className = "scrollTopBar scrollBar";
+		    leftBar.className = "bar";
+		    topBar.className = "bar";
+		    fullcontainer.appendChild(scrollLeftBar);
+		    fullcontainer.appendChild(scrollTopBar);
+		    scrollLeftBar.appendChild(leftBar);
+		    scrollTopBar.appendChild(topBar);
+		    
+		    var optimizedResize = (function() {
+		      var callbacks = [],
+		        running = false;
+
+		      function resize() {
+		        if (!running) {
+		          running = true;
+		          if (window.requestAnimationFrame) {
+		            window.requestAnimationFrame(runCallbacks);
+		          } else {
+		            setTimeout(runCallbacks, 66);
+		          }
+		        }
+		      }
+
+		      function runCallbacks() {
+		        callbacks.forEach(function(callback) {
+		          callback();
+		        });
+		        running = false;
+		      }
+
+		      function addCallback(callback) {
+		        if (callback) {
+		          callbacks.push(callback);
+		        }
+		      }
+		      return {
+		        add: function(callback) {
+		          if (!callbacks.length) {
+		            window.addEventListener('resize', resize);
+		          }
+		          addCallback(callback);
+		        }
+		      }
+		    }());
+
+		    optimizedResize.add(resizeBar);
+
+		    var containerW, containerSW, containerSL, containerH, containerSW, containerST;
+
+		    function resizeBar() {
+		      containerW = fullcontainer.offsetWidth;
+		      containerH = fullcontainer.offsetHeight;
+		      containerSW = container.scrollWidth;
+		      containerSH = container.scrollHeight;
+		      containerSL = container.scrollLeft;
+		      containerST = container.scrollTop;
+		      scrollLeftBar.style.width = containerW + "px";
+		      scrollTopBar.style.height = containerH + "px";
+		      leftBar.style.width = (containerW * 100) / containerSW + "%";
+		      leftBar.style.left = (containerSL * 100) / containerSW + "%";
+		      scrollLeftBar.style.top = containerH+containerST-leftBar.offsetHeight + "px";
+		      topBar.style.height = (containerH * 100) / containerSH + "%";
+		      topBar.style.top = (containerST * 100) / containerSH + "%";
+		      scrollTopBar.style.left = containerW+containerSL-topBar.offsetWidth + "px";
+		      if (container.offsetWidth == containerSW) {
+		        scrollLeftBar.style.display = "none";
+		      } else {
+		        scrollLeftBar.style.display = "block";
+		      }
+		      if (containerH == containerSH) {
+		        scrollTopBar.style.display = "none";
+		      } else {
+		        scrollTopBar.style.display = "";
+		      }
+		    }
+
+		    function moveBar() {
+		      var x;
+		      var y;
+		      var left;
+		      var top;
+		      var draggingLeft = false;
+		      var draggingTop = false;
+
+		      leftBar.addEventListener("mousedown", function(e) {
+		        x = +e.pageX +  document.body.scrollLeft;
+		        left = this.getBoundingClientRect().left;
+		        draggingLeft = true;
+		        if (leftBar.offsetLeft <= 0) {
+		          leftBar.style.left = "0px";
+		        }
+		      })
+		      topBar.addEventListener("mousedown", function(e) {
+		        y = e.pageY+document.body.scrollTop;
+		        top = this.getBoundingClientRect().top;
+		        draggingTop = true;
+		        if (topBar.offsetTop <= 0) {
+		          topBar.style.top = "0px";
+		        }
+		      })
+		      scrollLeftBar.addEventListener("mousedown", function(e) {
+		        var _x = +e.pageX +  document.body.scrollLeft;
+		          if (leftBar.getBoundingClientRect().left >= _x) {
+		            container.scrollLeft = container.scrollLeft - (10 * container.scrollWidth) / 100
+		          }
+		          if (leftBar.getBoundingClientRect().left + leftBar.offsetWidth <= _x) {
+		            container.scrollLeft = container.scrollLeft + (10 * container.scrollWidth) / 100
+		          }
+		          leftBar.style.left = (container.scrollLeft * 100) / containerSW + "%";
+		      })
+		      scrollTopBar.addEventListener("mousedown", function(e) {
+		        var _y = +e.pageY +  document.body.scrollTop;
+		          if (topBar.getBoundingClientRect().top >= _y) {
+		            container.scrollTop = container.scrollTop - (10 * container.scrollHeight) / 100
+		          }
+		          if (topBar.getBoundingClientRect().top + topBar.offsetHeight <= _y) {
+		            container.scrollTop = container.scrollTop + (10 * container.scrollHeight) / 100
+		          }
+		          topBar.style.top = (container.scrollTop * 100) / containerSH + "%";
+		      })
+		      document.addEventListener("mousemove", function(e) {
+		        e.preventDefault();
+		        var _x = +e.pageX +  document.body.scrollLeft;
+		        var _y = +e.pageY +  document.body.scrollTop;
+		        var spaceX = (x + container.getBoundingClientRect().left) - left;
+		        var spaceY = (y + container.getBoundingClientRect().top) - top;
+		        var percentLeft = (leftBar.offsetLeft * 100) / (scrollLeftBar.offsetWidth);
+		        var percentTop = (topBar.offsetTop * 100) / (scrollTopBar.offsetHeight);
+		        if (draggingLeft == true) {
+		          leftBar.style.left = (_x - spaceX)+ "px";
+		          container.scrollLeft = (percentLeft * containerSW) / 100
+		          if (leftBar.offsetLeft <= 0) {
+		            leftBar.style.left = "0";
+		          }
+		          if (leftBar.offsetLeft + leftBar.offsetWidth >= fullcontainer.offsetWidth) {
+		            leftBar.style.left = scrollLeftBar.offsetWidth - leftBar.offsetWidth -2  + "px";
+		          }
+		        }
+		        if (draggingTop == true) {
+		          topBar.style.top = (_y - spaceY) + "px";
+		          container.scrollTop = (percentTop * containerSH) / 100 
+		        
+		          if (topBar.offsetTop <= 0) {
+		            topBar.style.top = "0";
+		          }
+		          if (topBar.offsetTop + topBar.offsetHeight >= fullcontainer.offsetHeight) {
+		            topBar.style.top = scrollTopBar.offsetHeight - topBar.offsetHeight - 1 + "px";
+		          }
+		        }
+		      })
+		      window.addEventListener("mouseup", function(e) {
+		        draggingLeft = false;
+		        draggingTop = false;
+		      })
+		    }
+		    container.addEventListener('scroll', function() {  
+		      topBar.style.top = (this.scrollTop * 100) / this.scrollHeight + "%";
+		      leftBar.style.left = (this.scrollLeft * 100) / this.scrollWidth + "%";
+		    })
+		    moveBar();
+		    resizeBar();
+		  })
+		}
+	</script>
 </head>
-<body>
-	<div class="topbar unselectable">
-		<div class="main-logo-icon"></div>
-		<div class="right-align">
-			<div class="toggle-menu desactived-menu">
-				<span class="toggle-menu-line"></span>
-				<span class="toggle-menu-line"></span>
-				<span class="toggle-menu-line"></span>
-			</div>
-			<nav class="nav-list">
-				<ul>
-					<li><a href="#">EXPLORAR</a></li>
-					<li><a href="#">SOBRE</a></li>
-					<li><a href="#">AJUDA</a></li>
-				</ul>
-			</nav>
-		</div>
-	</div>
-	<div class="menu" data-actived="false" >
-		<div class="menu-isolater-background"></div>
-		<div class="menu-container">
-			<div class="menu-topbar unselectable">
-			  <div class="organize-icon"><span class="unselectable"><div class="grid"><span>&#x25a0;&#x25a0;&#x25a0;</span><span>&#x25a0;&#x25a0;&#x25a0;</span><span>&#x25a0;&#x25a0;&#x25a0;</span></div></span></div>
-				<div class="title"><span class="cursor-default">CONTEÚDOS</span></div>
-				<div class="close"><span></span><span></span></div>
-			</div>
-			<div class="menu-body" data-organize="list">
-				<div class="icons section">
-					<div class="matrix-section-title section-title unselectable" data-hide="true">
-						<div class="toggle-icon" ><span>></span></div>
-						<h1>Matriz</h1>
-						<div class="logo-icon" ><a href="" style="background-image: url('../images/icons/green/matrix.png')"></a></div>
-					</div>
-					<div class="matrix-section-content section-content">
-						<h1>Matriz</h1>
-					</div>
+<body ng-app="mathers_welcome" ng-controller="mathers_welcome_ctrl">
+	<div >
+		<div class="topbar unselectable">
+			<div class="main-logo-icon"></div>
+			<div class="right-align">
+				<div class="toggle-menu desactived-menu">
+					<span class="toggle-menu-line"></span>
+					<span class="toggle-menu-line"></span>
+					<span class="toggle-menu-line"></span>
 				</div>
-				<div class="icons section">
-					<div class="matrix-section-title section-title unselectable" data-hide="true">
-						<div class="toggle-icon" ><span>></span></div>
-						<h1>Logaritmo</h1>
-						<div class="logo-icon" ><a href="" style="background-image: url('../images/icons/green/log.png')"></a></div>
-					</div>
-					<div class="matrix-section-content section-content">
-						<h1>Logaritmo</h1>
-					</div>
-				</div>
-				<div class="icons section">
-					<div class="matrix-section-title section-title unselectable" data-hide="true">
-						<div class="toggle-icon" ><span>></span></div>
-						<h1>Constantes</h1>
-						<div class="logo-icon" ><a href="" style="background-image: url('../images/icons/green/consts.png')"></a></div>
-					</div>
-					<div class="matrix-section-content section-content">
-						<h1>Constantes</h1>
-					</div>
-				</div>
-				<div class="icons section">
-					<div class="matrix-section-title section-title unselectable" data-hide="true">
-						<div class="toggle-icon" ><span>></span></div>
-						<h1>Eq. do 2º grau</h1>
-						<div class="logo-icon" ><a href="" style="background-image: url('../images/icons/green/2equation.png')"></a></div>
-					</div>
-					<div class="matrix-section-content section-content">
-						<h1>Eq. do 2º grau</h1>
-					</div>
-				</div>
-				<div class="icons section">
-					<div class="matrix-section-title section-title unselectable" data-hide="true">
-						<div class="toggle-icon" ><span>></span></div>
-						<h1>Eq. do 1º grau</h1>
-						<div class="logo-icon" ><a href="" style="background-image: url('../images/icons/green/1equation.png')"></a></div>
-					</div>
-					<div class="matrix-section-content section-content">
-						<h1>Eq. do 1º grau</h1>
-					</div>
-				</div>
-				<div class="icons section">
-					<div class="matrix-section-title section-title unselectable" data-hide="true">
-						<div class="toggle-icon" ><span>></span></div>
-						<h1>Conversão</h1>
-						<div class="logo-icon" ><a href="" style="background-image: url('../images/icons/green/convert.png')"></a></div>
-					</div>
-					<div class="matrix-section-content section-content">
-						<h1>Conversão</h1>
-					</div>
-				</div>
-				<div class="icons section">
-					<div class="matrix-section-title section-title unselectable" data-hide="true">
-						<div class="toggle-icon" ><span>></span></div>
-						<h1>Porgressões</h1>
-						<div class="logo-icon" ><a href="" style="background-image: url('../images/icons/green/progress.png')"></a></div>
-					</div>
-					<div class="matrix-section-content section-content">
-						<h1>Conversão</h1>
-					</div>
-				</div>
-				<div class="icons section">
-					<div class="matrix-section-title section-title unselectable" data-hide="true">
-						<div class="toggle-icon" ><span>></span></div>
-						<h1>Geometria</h1>
-						<div class="logo-icon" ><a href="" style="background-image: url('../images/icons/green/geometry.png')"></a></div>
-					</div>
-					<div class="matrix-section-content section-content">
-						<h1>Conversão</h1>
-					</div>
-				</div>
-				<div class="icons section">
-					<div class="matrix-section-title section-title unselectable" data-hide="true">
-						<div class="toggle-icon" ><span>></span></div>
-						<h1>Porcentagem</h1>
-						<div class="logo-icon" ><a href="" style="background-image: url('../images/icons/green/percent.png')"></a></div>
-					</div>
-					<div class="matrix-section-content section-content">
-						<h1>Conversão</h1>
-					</div>
-				</div>
-				<div class="icons section">
-					<div class="matrix-section-title section-title unselectable" data-hide="true">
-						<div class="toggle-icon" ><span>></span></div>
-						<h1>Exponenciação</h1>
-						<div class="logo-icon" ><a href="" style="background-image: url('../images/icons/green/pow.png')"></a></div>
-					</div>
-					<div class="matrix-section-content section-content">
-						<h1>Conversão</h1>
-					</div>
-				</div>
-				<div class="icons section">
-					<div class="matrix-section-title section-title unselectable" data-hide="true">
-						<div class="toggle-icon" ><span>></span></div>
-						<h1>Radiciação</h1>
-						<div class="logo-icon" ><a href="" style="background-image: url('../images/icons/green/radic.png')"></a></div>
-					</div>
-					<div class="matrix-section-content section-content">
-						<h1>Conversão</h1>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="main-full-content">
-		<div class="follow-scroll">
-			<span class="scroll-marker"></span>
-			<span class="scroll-marker"></span>
-			<span class="scroll-marker"></span>	
-			<span class="scroll-marker"></span>		
-		</div>
-		<section class="introduction">
-			<h1 class="unselectable cursor-default">BEM-VINDO</h1>
-			<br>
-			<div class="intruction-button">
-				<button>EXPLORAR<br><span>></span></button>
-			</div>
-		</section>
-		<section class="page1 pages unselectable">
-			<div class="page-content-figure">
-				<img src="images/pages/figure0001.jpg">
-			</div>
-			<div class="page-content">
-				<article class="center-vertically">
-					<div class="content-text">
-						<h1>Um site.<br><span>Muitas possibilidades.</span></h1>
-						<br>
-						<p>Aqui no Mathers você tem acesso aos mais variados assuntos matemáticos por meio de aplicações simples e interativas.</p>
-					</div>
-				</article>
-				<nav>
+				<nav class="nav-list">
 					<ul>
-						<li style="background-image: url('../images/icons/white/matrix.png')">Matriz</li>
-						<li style="background-image: url('../images/icons/white/log.png')">Logaritmo</li>
-						<li style="background-image: url('../images/icons/white/convert.png')">Conversão</li>
-						<li style="background-image: url('../images/icons/white/consts.png')">Constantes</li><br>
-						<li style="background-image: url('../images/icons/white/2equation.png')">Eq. do 2º grau</li>
-						<li style="background-image: url('../images/icons/white/1equation.png')">Eq. do 1º grau</li>
-						<li style="background-image: url('../images/icons/white/progress.png')">Progressões</li>
-						<li style="background-image: url('../images/icons/white/geometry.png')">Geometria</li><br>
-						<li style="background-image: url('../images/icons/white/percent.png')">Porcentagem</li>
-						<li style="background-image: url('../images/icons/white/pow.png')">Exponenciação</li>
-						<li style="background-image: url('../images/icons/white/radic.png')">Radiciação</li>
+						<li><a href="#">EXPLORAR</a></li>
+						<li><a href="#">SOBRE</a></li>
+						<li><a href="#">AJUDA</a></li>
 					</ul>
 				</nav>
 			</div>
-		</section>
-		<section class="page1 pages">
+		</div>
+		<div class="menu" data-actived="false" >
+			<div class="menu-isolater-background"></div>
+			<div class="menu-container">
+				<div class="menu-topbar unselectable">
+				  <div class="organize-icon"><span class="unselectable"><div class="grid"><span>&#x25a0;&#x25a0;&#x25a0;</span><span>&#x25a0;&#x25a0;&#x25a0;</span><span>&#x25a0;&#x25a0;&#x25a0;</span></div></span></div>
+					<div class="title"><span class="cursor-default">CONTEÚDOS</span></div>
+					<div class="close"><span></span><span></span></div>
+				</div>
+				<div class="menu-body" data-organize="list">
+					<div class="icons section" ng-repeat="app in apps">
+						<div class="matrix-section-title section-title unselectable" data-hide="true">
+							<div class="toggle-icon" ><span>></span></div>
+							<h1>{{app.name}}</h1>
+							<div class="logo-icon" ><a href="" ng-style="{'background-image': 'url(../images/icons/green/{{app.src}})'}"></a></div>
+						</div>
+						<div class="matrix-section-content section-content">
+							<h1>{{app.name}}</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="main-full-content">
+			<div class="follow-scroll">
+			</div>
+			<section class="introduction">
+				<h1 class="unselectable cursor-default">BEM-VINDO</h1>
+				<br>
+				<div class="intruction-button">
+					<button>EXPLORAR<br><span>></span></button>
+				</div>
+			</section>
+			<section class="page1 pages unselectable">
+				<div class="page-content-figure">
+					<img src="images/pages/figure0001.jpg">
+				</div>
+				<div class="page-content cursor-default" style="display: none;">
+					<article class="center-vertically">
+						<div class="content-text">
+							<h1>Um site.<br><span>Muitas possibilidades.</span></h1>
+							<br>
+							<p>Aqui no Mathers você tem acesso aos mais variados assuntos matemáticos por meio de aplicações simples e interativas.</p>
+						</div>
+					</article>
+					<nav>
+						<!-- <ul>
+							<li ng-repeat="app in apps" ng-style="{'background-image': 'url(../images/icons/white/{{app.src}})'}">{{app.name}}</li>
+						</ul> -->
+					</nav>
+				</div>
+			</section>
+			<section class="page2 pages unselectable">
+				<div class="page-content" style="display: block;">
+					<article class="center-vertically">
+						<div class="content-text cursor-default">
+							<h1>Inclusão é tudo.<br><span>Feito para todos.</span></h1>
+							<br>
+							<p>O Mathers foi feito para você, estudante, graduando, professor, diretor, entusiasta, curioso. . .</p>
+						</div>
+					</article>
+					<nav>
+					</nav>
+				</div>
+				<div class="page-content-figure">
+					<img src="images/pages/students.jpg">
+				</div>
+			</section>
+			<section class="page3 pages">
+				
+			</section>
+			<section class="page4 pages">
+				<footer>
+					
+				</footer>
+			</section>
+		</div>
+		<footer class="main-footer">
 			
-		</section>
-		<section class="page2 pages">
-			
-		</section>
+		</footer>
 	</div>
 	<script type="text/javascript">
 		$(document).ready(function() {
+			$('.pages').each(function(i){
+				$('.follow-scroll').append('<span class="scroll-marker"></span>')
+			})
+
 			var menu = $('.menu'),
 				menuContainer = $('.menu .menu-container'),
 				menuIsolaterBackground = $('.menu .menu-isolater-background'),
 				toggleMenu = $('.topbar .toggle-menu'),
-				closeMenu = $('.menu .menu-topbar .close');
+				closeMenu = $('.menu .menu-topbar .close'),
+				scrollTopAtShowMenu = 0;
 
 			var menuFn = {
 				show: function(){
 					menu.show();
 					menuContainer.animate({
 						right: 0	
-					}, 200, function(){
-						$('body').css({
-							'overflow-y': 'hidden',
-							'padding-right': '17px'
-						});
-					});
+					}, 200);
 					menuIsolaterBackground.fadeIn(100);
 					menu.attr('data-actived', 'true');
 					toggleMenu.removeClass('desactived-menu');
 					toggleMenu.addClass('actived-menu');
+					scrollTopAtShowMenu = document.body.scrollTop;
 				},
 				hide: function(){
 					menuContainer.animate({
 						right: '-100%'
 					}, 100, function(){
 						menu.fadeOut(100);
-						$('body').css({
-							'overflow-y': 'auto',
-							'padding-right': '0'
-						});
 					});
 					menu.attr('data-actived', 'false');
 					toggleMenu.removeClass('actived-menu');
@@ -291,47 +381,89 @@
 					$('body, html').animate({
 						scrollTop: index == 0 ? $('.introduction').offset().top-60 : $('.pages').eq(index-1).offset().top
 					})
+				},
+				setMarker: function(index){
+					$('.follow-scroll .scroll-marker').removeClass('actived-scroll')
+					$('.follow-scroll .scroll-marker').eq(index - 1).addClass('actived-scroll');
 				}
 			}
 
+			var scrollFor = function(){
+				var _arguments = arguments;
+				var returned;
+				if(_arguments.length == 0){
+					var scrollTop = document.body.scrollTop;
+					$('.pages, .introduction').each(function(i){
+						if(scrollTop >= $(this).offset().top - 200){
+							returned = i;
+						}
+					})
+				}else{
+					$(document).on('scroll', function(e){
+						var scrollTop = document.body.scrollTop;
+						$('.pages, .introduction').each(function(i){
+							if(typeof _arguments[0] == 'number'){
+								var index = _arguments[0];
+								var callback = _arguments[1]
+							}else{
+								var callback = _arguments[0];
+							}
+							if(scrollTop >= $(this).offset().top - 200 && index == i){
+								callback(i);
+							}else if(scrollTop >= $(this).offset().top - 200){
+								callback(i);
+							}
+						});
+					});
+				}
+				return returned;
+			}
+			$(window).keydown(function(e){			
+				var keycode = e.keyCode || e.which;
+				if(keycode == 33){
+					e.preventDefault();
+					sectionFn.goTo(+scrollFor()-1);
+					return false
+				}else if(keycode == 34){
+					e.preventDefault();
+					sectionFn.goTo(+scrollFor()+1)
+					return false
+				}
+			});
+
+			sectionFn.goTo(2);
+			sectionFn.setMarker(2)
+
 			$('.intruction-button button').click(function(){ sectionFn.goTo(1) })
 
+			scrollFor(sectionFn.setMarker)
+
+			scrollFor(function(i){
+				if(i == 0){
+					$('.page1 .page-content').stop().fadeOut(800);
+					$('.follow-scroll').stop().fadeOut(200);
+				}else if(i == 1){
+					$('.page1 .page-content').stop().fadeIn(800);
+				}
+				if(i > 0){
+					$('.follow-scroll').stop().fadeIn(200);
+				}
+			})
+
 			$(document).on('scroll', function(e){
-				var selectScroll = 0;
-				var scrollTop = document.body.scrollTop;
-				/*if(scrollTop >= 50 && scrollTop <= 200){
-					if(scrollCount == 0){
-						scrollCount += 1;
-						$('body, html').animate({
-							scrollTop: $('.pages:first').offset().top-60
-						})
-					}
-				}else if(scrollTop == 0){
-					scrollCount = 0;
-				}*/
-				$('.pages, .introduction').each(function(i){
-					if(scrollTop >= $(this).offset().top - 200){
-						selectScroll = i;
-					}
-				})
-				$('.follow-scroll .scroll-marker').removeClass('actived-scroll')
-				$('.follow-scroll .scroll-marker').eq(selectScroll).addClass('actived-scroll');
 				if(menu.attr('data-actived') == "true"){
-					e.preventDefault();
-					return false;
-
-				}else{
-
+					document.body.scrollTop = scrollTopAtShowMenu
 				}
 			})
 			$('.follow-scroll .scroll-marker').click(function(e){
 				var index = $(e.target).index();
-				sectionFn.goTo(index)
+				sectionFn.goTo(index+1)
 			})
 			$('.unselectable').on('selectstart', function(e){
 				e.preventDefault();
 				return false;
 			})
+			customScrollbar('.overflow');
 		})
 	</script>
 </body>

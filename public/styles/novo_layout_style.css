@@ -16,6 +16,15 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: 'Aspergit';
+  src: url('../fonts/Aspergit/Aspergit.otf');
+  src: url('../fonts/Aspergit/Aspergit?#iefix') format('embedded-opentype'),
+    url('../fonts/Aspergit/Aspergit.svg#Locaweb-Icons') format('svg'),
+    url('../fonts/Aspergit/Aspergit.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 
 * {
@@ -155,6 +164,7 @@ body{
 	background: transparent;
 	overflow: hidden;
 	z-index: 100000;
+	display: none;
 }
 
 .menu .menu-isolater-background {
@@ -163,7 +173,7 @@ body{
 	height: 100%;
 	top: 0;
 	left: 0;
-	background: rgba(0, 0, 0, 0.3);
+	background: rgba(0, 0, 0, 0.5);
 }
 
 .menu .menu-container {
@@ -174,7 +184,6 @@ body{
 	right: 0;
 	background: #f1f2f3;
 	overflow: hidden;
-	padding-right: 17px;
 }
 
 .menu .menu-topbar {
@@ -630,7 +639,7 @@ body{
 	display: inline-block;
 	width: 70px;
 	height: 70px;
-	background: #3c948b;
+	background-color: #3c948b;
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 40px 40px;
@@ -675,12 +684,100 @@ body{
 	vertical-align: top;
 }
 .main-full-content .page1 .page-content-figure img{
-	width: 100%;
+	height: 100%;
 	position: relative;
 	vertical-align: middle;
 }
 
 
+
+
+
+
+
+.main-full-content .page2{
+	background: #237574; 
+	overflow: hidden;
+}
+
+.main-full-content .page2 .page-content{
+	position: absolute;
+	right: 0;
+	height: 100%;
+	width: 100%;
+	display: inline-block;
+	background: #3c938b; 
+	background: -webkit-linear-gradient(to right, #237574, rgba(60,148,139,0.0));
+	background: linear-gradient(to right, #237574, rgba(60,148,139,0.0)); 
+	background-position: 55% 0; 
+	background-size: 50% 100%; 
+	background-repeat: no-repeat; 
+	z-index: 10;
+}
+
+
+.main-full-content .page2 .page-content article{
+	position: relative;
+	height: 70%;
+	width: auto;
+	float: left;
+	margin: 0 80px 0 20px;
+}
+.main-full-content .page2 .page-content article .content-text{
+	height: auto;
+	width: 400px;
+}
+
+.main-full-content .page2 .page-content article h1{
+	font-size: 25pt;
+	font-family: 'Century Gothic', sans-serif;
+	text-align: left;
+	color: #ffffff;
+	font-weight: normal;
+}
+.main-full-content .page2 .page-content article h1 span{
+	font-weight: bold;
+}
+
+.main-full-content .page2 .page-content article p{
+	font-size: 18pt;
+	font-family: 'Aspergit', sans-serif;
+	color: #ffffff;
+	margin: 10% 0;
+	text-align: left;
+  letter-spacing: 1px;
+}
+
+.main-full-content .page2 .page-content-figure{
+	width: 100%;
+	height: 100%;
+	background: transparent;
+	display: inline-block;
+	vertical-align: top;
+	float: right;
+	z-index: 4;
+}
+.main-full-content .page2 .page-content-figure img{
+	height: 100%;
+	position: relative;
+	vertical-align: middle;
+	float: right;
+}
+
+.main-full-content .page4 {
+	background-color: #fff;
+	background-image: url('../images/pages/footer_lastpage.png');
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+	background-position: 0 bottom;
+	border: none;	
+}
+
+footer.main-footer{
+	height: 50vh;
+	min-height: 300px;
+	background: #002c27;
+}
 
 
 
@@ -724,4 +821,69 @@ body{
 .center-vertically{
 	top: 50%;
 	transform: translateY(-50%);
+}
+
+.overflow-container{
+  width: 100%;
+  height: 200px;
+  background: #fff;
+  overflow: hidden;
+  position: relative;
+}
+.container {
+  width: 100%;
+  height: 200px;
+  background: #fff;
+  overflow: auto;
+  position: relative;
+  padding: 0 20px 20px 0;
+}
+.overflow-container:hover .scrollTopBar, .overflow-container:hover .scrollLeftBar{
+  opacity: 1
+}
+.content {
+  width: 1000px;
+  height: 1000px;
+  background: #ccc;
+  color: #fff;
+}
+
+.scrollBar {
+  background: rgba(0, 0, 0, 0.1);
+  position: absolute;
+}
+.scrollLeftBar {
+  height: 10px;
+  bottom: 0;
+  left: 0;
+}
+.scrollTopBar {
+  top: 0;
+  right: 0;
+  width: 10px;
+}
+
+.scrollBar .bar{
+  background: rgba(0, 0, 0, 0.3);
+  position: absolute;
+}
+.scrollTopBar .bar{
+  width: 10px;
+}
+.scrollTopBar, .scrollLeftBar{
+  opacity: 0.5;
+  transition: opacity 0.1s ease-in;
+}
+.scrollLeftBar .bar {
+  height: 10px;
+}
+
+
+.scrollBar .bar:hover{
+  background: rgba(0, 0, 0, 0.4);
+  position: absolute;
+}
+.scrollBar .bar:active{
+  background: rgba(0, 0, 0, 0.6);
+  position: absolute;
 }
