@@ -66,9 +66,14 @@
 	.menu .menu-container {
 		padding-right: 0;
 	}
-
+	.fixed{
+		overflow: hidden;
+	}
 }
 @media screen and (max-width:  360px) {
+	.fixed{
+		overflow: hidden;
+	}
 	.menu .menu-container {
 		padding-right: 0;
 	}

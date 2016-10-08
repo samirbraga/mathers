@@ -318,6 +318,7 @@
 					toggleMenu.removeClass('desactived-menu');
 					toggleMenu.addClass('actived-menu');
 					scrollTopAtShowMenu = document.body.scrollTop;
+					$('body').addClass('fixed');
 				},
 				hide: function(){
 					menuContainer.animate({
@@ -328,6 +329,7 @@
 					menu.attr('data-actived', 'false');
 					toggleMenu.removeClass('actived-menu');
 					toggleMenu.addClass('desactived-menu');
+					$('body').removeClass('fixed');
 				}
 			}
 			if(menu.attr('data-actived') == 'true') menuFn.show();
@@ -455,9 +457,7 @@
 					document.body.scrollTop = scrollTopAtShowMenu
 					e.preventDefault()
 					e.stopPropagation();
-					$('body').addClass('fixed');
 				}else{
-					$('body').removeClass('fixed');
 				}
 			})
 			$('.follow-scroll .scroll-marker').click(function(e){
