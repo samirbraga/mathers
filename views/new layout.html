@@ -8,6 +8,7 @@
 	<script type="text/javascript" src="libs/jquery.js"></script>
 	<script type="text/javascript" src="libs/angular.js"></script>
 	<link rel="stylesheet" type="text/css" href="styles/novo_layout_style.css">
+	<meta name="google-site-verification" content="i0hmAGlyWWfJp-zK5fkx2v0emW_Itj01j6J3Iq1upBc" />
 	<link rel="stylesheet" type="text/css" href="styles/novo_layout_style_mobile.css"><!-- 
 	<link rel="stylesheet" type="text/css" href="styles - Copia/novo_layout_style.css">
 	<link rel="stylesheet" type="text/css" href="styles - Copia/novo_layout_style_mobile.css"> -->
@@ -15,184 +16,6 @@
 	<script type="text/javascript"  src="scripts/MVC/app.js"></script>
 	<script type="text/javascript"  src="scripts/MVC/controllers/mathers_welcome_ctrl.js"></script>
 	<script type="text/javascript">
-		function customScrollbar(element) {
-
-		  var elements = document.querySelectorAll(element);
-		  [].forEach.call(elements, function(container, i) {
-		  	var fullcontainer = container;
-		   	container.innerHTML = container.outerHTML;	
-		    container.removeAttribute('class');	
-		  	container.className = 'overflow-container';
-				
-		  	container = container.querySelector('.overflow');
-		    var scrollTopBar = document.createElement('div');
-		    var topBar = document.createElement('div');
-		    var scrollLeftBar = document.createElement('div');
-		    var leftBar = document.createElement('div');
-		    scrollLeftBar.className = "scrollLeftBar scrollBar";
-		    scrollTopBar.className = "scrollTopBar scrollBar";
-		    leftBar.className = "bar";
-		    topBar.className = "bar";
-		    fullcontainer.appendChild(scrollLeftBar);
-		    fullcontainer.appendChild(scrollTopBar);
-		    scrollLeftBar.appendChild(leftBar);
-		    scrollTopBar.appendChild(topBar);
-		    
-		    var optimizedResize = (function() {
-		      var callbacks = [],
-		        running = false;
-
-		      function resize() {
-		        if (!running) {
-		          running = true;
-		          if (window.requestAnimationFrame) {
-		            window.requestAnimationFrame(runCallbacks);
-		          } else {
-		            setTimeout(runCallbacks, 66);
-		          }
-		        }
-		      }
-
-		      function runCallbacks() {
-		        callbacks.forEach(function(callback) {
-		          callback();
-		        });
-		        running = false;
-		      }
-
-		      function addCallback(callback) {
-		        if (callback) {
-		          callbacks.push(callback);
-		        }
-		      }
-		      return {
-		        add: function(callback) {
-		          if (!callbacks.length) {
-		            window.addEventListener('resize', resize);
-		          }
-		          addCallback(callback);
-		        }
-		      }
-		    }());
-
-		    optimizedResize.add(resizeBar);
-
-		    var containerW, containerSW, containerSL, containerH, containerSW, containerST;
-
-		    function resizeBar() {
-		      containerW = fullcontainer.offsetWidth;
-		      containerH = fullcontainer.offsetHeight;
-		      containerSW = container.scrollWidth;
-		      containerSH = container.scrollHeight;
-		      containerSL = container.scrollLeft;
-		      containerST = container.scrollTop;
-		      scrollLeftBar.style.width = containerW + "px";
-		      scrollTopBar.style.height = containerH + "px";
-		      leftBar.style.width = (containerW * 100) / containerSW + "%";
-		      leftBar.style.left = (containerSL * 100) / containerSW + "%";
-		      scrollLeftBar.style.top = containerH+containerST-leftBar.offsetHeight + "px";
-		      topBar.style.height = (containerH * 100) / containerSH + "%";
-		      topBar.style.top = (containerST * 100) / containerSH + "%";
-		      scrollTopBar.style.left = containerW+containerSL-topBar.offsetWidth + "px";
-		      if (container.offsetWidth == containerSW) {
-		        scrollLeftBar.style.display = "none";
-		      } else {
-		        scrollLeftBar.style.display = "block";
-		      }
-		      if (containerH == containerSH) {
-		        scrollTopBar.style.display = "none";
-		      } else {
-		        scrollTopBar.style.display = "";
-		      }
-		    }
-
-		    function moveBar() {
-		      var x;
-		      var y;
-		      var left;
-		      var top;
-		      var draggingLeft = false;
-		      var draggingTop = false;
-
-		      leftBar.addEventListener("mousedown", function(e) {
-		        x = +e.pageX +  document.body.scrollLeft;
-		        left = this.getBoundingClientRect().left;
-		        draggingLeft = true;
-		        if (leftBar.offsetLeft <= 0) {
-		          leftBar.style.left = "0px";
-		        }
-		      })
-		      topBar.addEventListener("mousedown", function(e) {
-		        y = e.pageY+document.body.scrollTop;
-		        top = this.getBoundingClientRect().top;
-		        draggingTop = true;
-		        if (topBar.offsetTop <= 0) {
-		          topBar.style.top = "0px";
-		        }
-		      })
-		      scrollLeftBar.addEventListener("mousedown", function(e) {
-		        var _x = +e.pageX +  document.body.scrollLeft;
-		          if (leftBar.getBoundingClientRect().left >= _x) {
-		            container.scrollLeft = container.scrollLeft - (10 * container.scrollWidth) / 100
-		          }
-		          if (leftBar.getBoundingClientRect().left + leftBar.offsetWidth <= _x) {
-		            container.scrollLeft = container.scrollLeft + (10 * container.scrollWidth) / 100
-		          }
-		          leftBar.style.left = (container.scrollLeft * 100) / containerSW + "%";
-		      })
-		      scrollTopBar.addEventListener("mousedown", function(e) {
-		        var _y = +e.pageY +  document.body.scrollTop;
-		          if (topBar.getBoundingClientRect().top >= _y) {
-		            container.scrollTop = container.scrollTop - (10 * container.scrollHeight) / 100
-		          }
-		          if (topBar.getBoundingClientRect().top + topBar.offsetHeight <= _y) {
-		            container.scrollTop = container.scrollTop + (10 * container.scrollHeight) / 100
-		          }
-		          topBar.style.top = (container.scrollTop * 100) / containerSH + "%";
-		      })
-		      document.addEventListener("mousemove", function(e) {
-		        e.preventDefault();
-		        var _x = +e.pageX +  document.body.scrollLeft;
-		        var _y = +e.pageY +  document.body.scrollTop;
-		        var spaceX = (x + container.getBoundingClientRect().left) - left;
-		        var spaceY = (y + container.getBoundingClientRect().top) - top;
-		        var percentLeft = (leftBar.offsetLeft * 100) / (scrollLeftBar.offsetWidth);
-		        var percentTop = (topBar.offsetTop * 100) / (scrollTopBar.offsetHeight);
-		        if (draggingLeft == true) {
-		          leftBar.style.left = (_x - spaceX)+ "px";
-		          container.scrollLeft = (percentLeft * containerSW) / 100
-		          if (leftBar.offsetLeft <= 0) {
-		            leftBar.style.left = "0";
-		          }
-		          if (leftBar.offsetLeft + leftBar.offsetWidth >= fullcontainer.offsetWidth) {
-		            leftBar.style.left = scrollLeftBar.offsetWidth - leftBar.offsetWidth -2  + "px";
-		          }
-		        }
-		        if (draggingTop == true) {
-		          topBar.style.top = (_y - spaceY) + "px";
-		          container.scrollTop = (percentTop * containerSH) / 100 
-		        
-		          if (topBar.offsetTop <= 0) {
-		            topBar.style.top = "0";
-		          }
-		          if (topBar.offsetTop + topBar.offsetHeight >= fullcontainer.offsetHeight) {
-		            topBar.style.top = scrollTopBar.offsetHeight - topBar.offsetHeight - 1 + "px";
-		          }
-		        }
-		      })
-		      window.addEventListener("mouseup", function(e) {
-		        draggingLeft = false;
-		        draggingTop = false;
-		      })
-		    }
-		    container.addEventListener('scroll', function() {  
-		      topBar.style.top = (this.scrollTop * 100) / this.scrollHeight + "%";
-		      leftBar.style.left = (this.scrollLeft * 100) / this.scrollWidth + "%";
-		    })
-		    moveBar();
-		    resizeBar();
-		  })
-		}
 	</script>
 </head>
 <body ng-app="mathers_welcome" ng-controller="mathers_welcome_ctrl">
@@ -489,6 +312,189 @@
 
 		ga('create', 'UA-87076905-1', 'auto');
 		ga('send', 'pageview');
+	</script>
+	<script>
+		/*
+
+		function customScrollbar(element) {
+
+		  var elements = document.querySelectorAll(element);
+		  [].forEach.call(elements, function(container, i) {
+		  	var fullcontainer = container;
+		   	container.innerHTML = container.outerHTML;	
+		    container.removeAttribute('class');	
+		  	container.className = 'overflow-container';
+				
+		  	container = container.querySelector('.overflow');
+		    var scrollTopBar = document.createElement('div');
+		    var topBar = document.createElement('div');
+		    var scrollLeftBar = document.createElement('div');
+		    var leftBar = document.createElement('div');
+		    scrollLeftBar.className = "scrollLeftBar scrollBar";
+		    scrollTopBar.className = "scrollTopBar scrollBar";
+		    leftBar.className = "bar";
+		    topBar.className = "bar";
+		    fullcontainer.appendChild(scrollLeftBar);
+		    fullcontainer.appendChild(scrollTopBar);
+		    scrollLeftBar.appendChild(leftBar);
+		    scrollTopBar.appendChild(topBar);
+		    
+		    var optimizedResize = (function() {
+		      var callbacks = [],
+		        running = false;
+
+		      function resize() {
+		        if (!running) {
+		          running = true;
+		          if (window.requestAnimationFrame) {
+		            window.requestAnimationFrame(runCallbacks);
+		          } else {
+		            setTimeout(runCallbacks, 66);
+		          }
+		        }
+		      }
+
+		      function runCallbacks() {
+		        callbacks.forEach(function(callback) {
+		          callback();
+		        });
+		        running = false;
+		      }
+
+		      function addCallback(callback) {
+		        if (callback) {
+		          callbacks.push(callback);
+		        }
+		      }
+		      return {
+		        add: function(callback) {
+		          if (!callbacks.length) {
+		            window.addEventListener('resize', resize);
+		          }
+		          addCallback(callback);
+		        }
+		      }
+		    }());
+
+		    optimizedResize.add(resizeBar);
+
+		    var containerW, containerSW, containerSL, containerH, containerSW, containerST;
+
+		    function resizeBar() {
+		      containerW = fullcontainer.offsetWidth;
+		      containerH = fullcontainer.offsetHeight;
+		      containerSW = container.scrollWidth;
+		      containerSH = container.scrollHeight;
+		      containerSL = container.scrollLeft;
+		      containerST = container.scrollTop;
+		      scrollLeftBar.style.width = containerW + "px";
+		      scrollTopBar.style.height = containerH + "px";
+		      leftBar.style.width = (containerW * 100) / containerSW + "%";
+		      leftBar.style.left = (containerSL * 100) / containerSW + "%";
+		      scrollLeftBar.style.top = containerH+containerST-leftBar.offsetHeight + "px";
+		      topBar.style.height = (containerH * 100) / containerSH + "%";
+		      topBar.style.top = (containerST * 100) / containerSH + "%";
+		      scrollTopBar.style.left = containerW+containerSL-topBar.offsetWidth + "px";
+		      if (container.offsetWidth == containerSW) {
+		        scrollLeftBar.style.display = "none";
+		      } else {
+		        scrollLeftBar.style.display = "block";
+		      }
+		      if (containerH == containerSH) {
+		        scrollTopBar.style.display = "none";
+		      } else {
+		        scrollTopBar.style.display = "";
+		      }
+		    }
+
+		    function moveBar() {
+		      var x;
+		      var y;
+		      var left;
+		      var top;
+		      var draggingLeft = false;
+		      var draggingTop = false;
+
+		      leftBar.addEventListener("mousedown", function(e) {
+		        x = +e.pageX +  document.body.scrollLeft;
+		        left = this.getBoundingClientRect().left;
+		        draggingLeft = true;
+		        if (leftBar.offsetLeft <= 0) {
+		          leftBar.style.left = "0px";
+		        }
+		      })
+		      topBar.addEventListener("mousedown", function(e) {
+		        y = e.pageY+document.body.scrollTop;
+		        top = this.getBoundingClientRect().top;
+		        draggingTop = true;
+		        if (topBar.offsetTop <= 0) {
+		          topBar.style.top = "0px";
+		        }
+		      })
+		      scrollLeftBar.addEventListener("mousedown", function(e) {
+		        var _x = +e.pageX +  document.body.scrollLeft;
+		          if (leftBar.getBoundingClientRect().left >= _x) {
+		            container.scrollLeft = container.scrollLeft - (10 * container.scrollWidth) / 100
+		          }
+		          if (leftBar.getBoundingClientRect().left + leftBar.offsetWidth <= _x) {
+		            container.scrollLeft = container.scrollLeft + (10 * container.scrollWidth) / 100
+		          }
+		          leftBar.style.left = (container.scrollLeft * 100) / containerSW + "%";
+		      })
+		      scrollTopBar.addEventListener("mousedown", function(e) {
+		        var _y = +e.pageY +  document.body.scrollTop;
+		          if (topBar.getBoundingClientRect().top >= _y) {
+		            container.scrollTop = container.scrollTop - (10 * container.scrollHeight) / 100
+		          }
+		          if (topBar.getBoundingClientRect().top + topBar.offsetHeight <= _y) {
+		            container.scrollTop = container.scrollTop + (10 * container.scrollHeight) / 100
+		          }
+		          topBar.style.top = (container.scrollTop * 100) / containerSH + "%";
+		      })
+		      document.addEventListener("mousemove", function(e) {
+		        e.preventDefault();
+		        var _x = +e.pageX +  document.body.scrollLeft;
+		        var _y = +e.pageY +  document.body.scrollTop;
+		        var spaceX = (x + container.getBoundingClientRect().left) - left;
+		        var spaceY = (y + container.getBoundingClientRect().top) - top;
+		        var percentLeft = (leftBar.offsetLeft * 100) / (scrollLeftBar.offsetWidth);
+		        var percentTop = (topBar.offsetTop * 100) / (scrollTopBar.offsetHeight);
+		        if (draggingLeft == true) {
+		          leftBar.style.left = (_x - spaceX)+ "px";
+		          container.scrollLeft = (percentLeft * containerSW) / 100
+		          if (leftBar.offsetLeft <= 0) {
+		            leftBar.style.left = "0";
+		          }
+		          if (leftBar.offsetLeft + leftBar.offsetWidth >= fullcontainer.offsetWidth) {
+		            leftBar.style.left = scrollLeftBar.offsetWidth - leftBar.offsetWidth -2  + "px";
+		          }
+		        }
+		        if (draggingTop == true) {
+		          topBar.style.top = (_y - spaceY) + "px";
+		          container.scrollTop = (percentTop * containerSH) / 100 
+		        
+		          if (topBar.offsetTop <= 0) {
+		            topBar.style.top = "0";
+		          }
+		          if (topBar.offsetTop + topBar.offsetHeight >= fullcontainer.offsetHeight) {
+		            topBar.style.top = scrollTopBar.offsetHeight - topBar.offsetHeight - 1 + "px";
+		          }
+		        }
+		      })
+		      window.addEventListener("mouseup", function(e) {
+		        draggingLeft = false;
+		        draggingTop = false;
+		      })
+		    }
+		    container.addEventListener('scroll', function() {  
+		      topBar.style.top = (this.scrollTop * 100) / this.scrollHeight + "%";
+		      leftBar.style.left = (this.scrollLeft * 100) / this.scrollWidth + "%";
+		    })
+		    moveBar();
+		    resizeBar();
+		  })
+		}
+		*/
 	</script>
 </body>
 </html>
